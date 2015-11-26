@@ -555,7 +555,7 @@ test('deep clone', function (t) {
   t.end();
 });
 
-test('deep clone; arrays are merged', function (t) {
+test('deep clone; arrays are not merged', function (t) {
   var defaults = {
     arr: [1, 2, 3]
   };
@@ -563,7 +563,7 @@ test('deep clone; arrays are merged', function (t) {
     arr: ['x']
   };
   var expectedTarget = {
-    arr: ['x', 2, 3]
+    arr: ['x']
   };
 
   var target = extend(true, defaults, override);
