@@ -572,3 +572,38 @@ test('deep clone; arrays are not merged', function (t) {
   t.end();
 });
 
+test('deep clone; object references are not copied', function (t) {
+  var override = {
+    obj: {
+      a: 'a',
+      b: 'b'
+    },
+    obj2: {
+      deep: {
+        a: 'a',
+        b: 'b'
+      }
+    }
+  };
+
+  var target = extend(true, {}, override);
+
+  t.equal(target.obj === override.obj, false, 'object reference are equal');
+  t.equal(target.obj2 === override.obj2, false, 'object reference are equal');
+  t.equal(target.obj2.deep === override.obj2.deep, false, 'object reference are equal');
+  t.end();
+});
+
+test('deep clone; array references are not copied', function (t) {
+  var override = {
+    arr: [1, 2, 3],
+    arr2: [1, [2, 3], 4]
+  };
+
+  var target = extend(true, {}, override);
+
+  t.equal(target.arr === override.arr, false, 'array reference are equal');
+  t.equal(target.arr2 === override.arr2, false, 'array reference are equal');
+  t.equal(target.arr2[1] === override.arr2[1], false, 'array reference are equal');
+  t.end();
+});
